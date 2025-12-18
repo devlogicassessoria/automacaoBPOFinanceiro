@@ -1,0 +1,5 @@
+contaazul/secret/.env ,
+.dockerignore,
+.gitignore,
+.venv,
+app/__pycache__,
