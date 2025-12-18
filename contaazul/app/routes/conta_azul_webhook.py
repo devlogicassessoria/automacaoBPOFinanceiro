@@ -1,17 +1,19 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request,HTTPException
+from contaazul.services.contaAzulService import ContaAzulService
 
 router = APIRouter()
+
+service = ContaAzulService()
 
 @router.get("/conta-azul/callback")
 async def conta_azul_callback(request: Request):
     code = request.query_params.get("code")
-    state = request.query_params.get("state")
 
-    # DEBUG
-    print("CODE:", code)
-    print("STATE:", state)
+    if not code:
+        raise HTTPException(status_code=400, detail="Code não informado")
 
+    service.handle_oauth_callback(code)
     return {
-        "status": "callback recebido",
+        "status": "Conta Azul autorizado com sucesso",
         "code": code
     }

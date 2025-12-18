@@ -7,3 +7,5 @@ app = FastAPI()
 
 app.include_router(endpoint_router)
 app.include_router(conta_azul_router)
+
+print ("Deu certo!")
