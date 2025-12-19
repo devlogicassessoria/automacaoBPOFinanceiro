@@ -1,11 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI # pyright: ignore[reportMissingImports]
 
-from app.routes.endpoint_webhook import router as endpoint_router
-from app.routes.conta_azul_webhook import router as conta_azul_router
+from contaazul.app.routes.endpoint_webhook import router as endpoint_router
+from contaazul.app.routes.conta_azul_webhook import router as conta_azul_router
 
-app = FastAPI()
+def create_app() -> FastAPI:
+    app = FastAPI(title = "Integração ContaAzul")
+    app.include_router(endpoint_router)
+    app.include_router(conta_azul_router)
+    print ("Deu certo!")
 
-app.include_router(endpoint_router)
-app.include_router(conta_azul_router)
+    return app
 
-print ("Deu certo!")
+app = create_app()   
